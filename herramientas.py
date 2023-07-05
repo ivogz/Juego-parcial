@@ -261,20 +261,23 @@ lista_sonidos = [sonido_fondo, sonido_pausa, sonido_juego]
 sonido_fondo.set_volume(0.1)
 
 def apagar_sonidos_menos(sonido_no_apagar:str):
+    '''fondo, juego, pausa'''
     global lista_sonidos
     if sonido_no_apagar == "fondo":
         for sonido in lista_sonidos:
             if sonido == sonido_fondo:
-                sonido.play()
+                sonido.play(-1)
             else: sonido.stop()
     elif sonido_no_apagar == "juego":
         for sonido in lista_sonidos:
             if sonido == sonido_juego:
-                sonido.play()
+                sonido.play(-1)
             else: sonido.stop()
     elif sonido_no_apagar == "pausa":
         for sonido in lista_sonidos:
             if sonido == sonido_pausa:
-                sonido.play()
+                sonido.play(-1)
             else: sonido.stop()
+    for sonido in lista_sonidos:
+        sonido.set_volume(0.1)
 

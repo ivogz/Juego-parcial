@@ -223,6 +223,8 @@ class GameState():
 
         while self.bandera_pause:
 
+            h.apagar_sonidos_menos("pausa")
+
             for event in pg.event.get():
                 self.cerrar_con_cruz(event)
                 if event.type == pg.KEYDOWN:
