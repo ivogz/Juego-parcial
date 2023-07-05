@@ -7,6 +7,8 @@ from game_state import GameState
 
 game_state = GameState()
 
+
+
 running = True
     
 while running:

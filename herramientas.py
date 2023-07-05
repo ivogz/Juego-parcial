@@ -237,7 +237,7 @@ cerebro_animacion = [
     pg.image.load("assets/Enemigos/Boss/1.png")
 ]
 
-reescalar_imagenes2(cerebro_animacion, 124, 124)
+reescalar_imagenes2(cerebro_animacion, 62*3, 62*3)
 
 cerebro_shoot = [
     pg.image.load("assets/Enemigos/Boss/6.png"),
@@ -245,5 +245,36 @@ cerebro_shoot = [
     pg.image.load("assets/Enemigos/Boss/8.png"),
     pg.image.load("assets/Enemigos/Boss/9.png")
 ]
+reescalar_imagenes2(cerebro_shoot, 42, 42)
 
+
+############# SONIDOS #######
+pg.mixer.init()
+
+sonido_fondo = pg.mixer.Sound("assets\Sonidos\sonido_fondo.mp3")
+sonido_pausa = pg.mixer.Sound("assets\Sonidos\pausa.mp3")
+sonido_juego = pg.mixer.Sound("assets\Sonidos\sonido_juego.mp3")
+
+lista_sonidos = [sonido_fondo, sonido_pausa, sonido_juego]
+
+
+sonido_fondo.set_volume(0.1)
+
+def apagar_sonidos_menos(sonido_no_apagar:str):
+    global lista_sonidos
+    if sonido_no_apagar == "fondo":
+        for sonido in lista_sonidos:
+            if sonido == sonido_fondo:
+                sonido.play()
+            else: sonido.stop()
+    elif sonido_no_apagar == "juego":
+        for sonido in lista_sonidos:
+            if sonido == sonido_juego:
+                sonido.play()
+            else: sonido.stop()
+    elif sonido_no_apagar == "pausa":
+        for sonido in lista_sonidos:
+            if sonido == sonido_pausa:
+                sonido.play()
+            else: sonido.stop()
 

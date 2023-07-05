@@ -34,13 +34,13 @@ class GameState():
         self.nivel_tres = Nivel_3()
         self.nivel_cuatro = Nivel_4()
         self.nivel_cinco = Nivel_5()
-        self.nivel_cinco.activar_nivel()
 
         self.bandera_pause = False
         self.bandera_boss_5 = False
 
     def intro(self):
 
+        h.sonido_fondo.play()
 
         for event in pg.event.get():
             self.cerrar_con_cruz(event)
@@ -128,46 +128,53 @@ class GameState():
     def state_manager(self):
         if self.state == "intro":
             self.intro()
+            h.apagar_sonidos_menos("fondo")
         
         elif self.state == "selector de niveles":
             self.selector_de_niveles()
+            h.apagar_sonidos_menos("fondo")
 
         elif self.state == "settings":
             self.settings()
+            h.apagar_sonidos_menos("fondo")
 
         elif self.state == "nivel_1":
+            h.apagar_sonidos_menos("juego")
             self.state_actual = self.nivel_uno
             self.main_game()
-            if self.state_actual.score.puntuacion >= 30:
+            if self.state_actual.score.puntuacion >= 70:
                 self.nivel_dos.activar_nivel()
                 self.state = "nivel_2"
 
         elif self.state == "nivel_2":
+            h.apagar_sonidos_menos("juego")
             self.state_actual = self.nivel_dos
             self.main_game()
-            if self.state_actual.score.puntuacion >= 30:
+            if self.state_actual.score.puntuacion >= 100:
                 self.nivel_tres.activar_nivel()
                 self.state = "nivel_3"
 
         elif self.state == "nivel_3":
+            h.apagar_sonidos_menos("juego")
             self.state_actual = self.nivel_tres
             self.main_game()
-            if self.state_actual.score.puntuacion >= 30:
+            if self.state_actual.score.puntuacion >= 150:
                 self.nivel_cuatro.activar_nivel()
                 self.state = "nivel_4"
 
         elif self.state == "nivel_4":
+            h.apagar_sonidos_menos("juego")
             self.state_actual = self.nivel_cuatro
             self.main_game()
-            if self.state_actual.score.puntuacion >= 30:
+            if self.state_actual.score.puntuacion >= 200:
                 self.nivel_cinco.activar_nivel()
                 self.state = "nivel_5"
 
         elif self.state == "nivel_5":
-            
+            h.apagar_sonidos_menos("juego")
             self.state_actual = self.nivel_cinco
             self.main_game()
-            if self.state_actual.score.puntuacion >= 20 and self.bandera_boss_5 == False:
+            if self.state_actual.score.puntuacion >= 100 and self.bandera_boss_5 == False:
                 self.state_actual.spawn_boss()
                 self.bandera_boss_5 = True
 
@@ -182,6 +189,8 @@ class GameState():
                     cambiar_modo()
                 elif event.key == pg.K_ESCAPE:
                     self.pause()
+                elif event.key == pg.K_y:
+                    self.state_actual.score.puntuacion += 50
 
         self.comprobar_pause()
 

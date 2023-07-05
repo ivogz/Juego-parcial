@@ -12,7 +12,8 @@ from herramientas import *
 ##########################################
 
 pg.init()
-#pg.mixer.init()
+# pg.mixer.init()
+# pg.mixer.music.set_volume(0.7)
 clock = pg.time.Clock()
 
 pg.display.set_caption("JUEGO")

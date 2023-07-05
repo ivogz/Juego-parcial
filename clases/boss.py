@@ -19,7 +19,7 @@ class Boss(pg.sprite.Sprite):
 
         self.rect.x = c.ANCHO/2  
         self.rect.y = 0
-        self.velocidad = 0
+        self.velocidad = 4
 
         #### SELF LISTA_PROYECT #####
         self.lista_proyectiles = lista_proyectiles
@@ -57,27 +57,30 @@ class Boss(pg.sprite.Sprite):
         self.shoot()
 
 
-        if self.cond:
-            self.rect.x -= 3
-        else:
-            self.rect.x += 3
+        self.rect.x += self.velocidad
 
         if self.rect.right >= c.ANCHO:
-            self.cond = False
-            self.rect.right = c.ANCHO - 40
+            # self.cond = False
+            # self.rect.right = c.ANCHO - 40
+            self.velocidad = -4
         elif self.rect.left <= 0:
-            self.cond = True
-            self.rect.left = 0 + 40
+            # self.cond = True
+            # self.rect.left = 0 + 40
+            self.velocidad = 4
+        
+        
         # if self.rect.left > 0:
         #     self.rect.left = 0
         # if self.rect.right < c.ANCHO:
         #     self.rect.right = c.ANCHO
 
     def shoot(self):
-        if self.rect.x == self.player.rect.x:
-
-            proyectil = Proyectiles(h.cerebro_shoot, self.rect.centerx, self.rect.y, 0, 3)  
-            self.lista_proyectiles.add(proyectil)
-            self.all_sprites.add(proyectil)
+        if self.rect.x == self.player.rect.centerx:
+            for i in range(8):
+                x = self.rect.centerx + random.randint(-20, 20)  # Posición x aleatoria
+                y = self.rect.y  # Posición y del Boss
+                proyectil = Proyectiles(h.cerebro_shoot, x, y, 0, 3)
+                self.lista_proyectiles.add(proyectil)
+                self.all_sprites.add(proyectil)
 
 
