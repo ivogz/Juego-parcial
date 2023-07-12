@@ -18,7 +18,7 @@ class Ranking():
 
         PANTALLA.fill(c.NEGRO)
         try:
-            with open(f"Ranking\level_{nivel}.json", encoding='utf-8') as f:
+            with open(f"Ranking\level_1.json", encoding='utf-8') as f:
                 data = json.load(f)
                 for dicc in data:
                     self.lista_ranking.append(dicc)
@@ -27,12 +27,15 @@ class Ranking():
 
         try:
             for dicc in self.lista_ranking:
+                print (dicc)
                 texto = f"{self.pos} - {dicc['Nombre']} completado en {dicc['tiempo']}"
 
                 superficie_texto = self.fuente.render(texto, True, c.BLANCO)
                 PANTALLA.blit(superficie_texto, (460, self.primera_altura + 100))
         except:
             print("NO HAY RANKING")
+
+        
 
         boton_menu.draw(PANTALLA)
         pg.display.update()

@@ -5,6 +5,7 @@ import constantes as c
 sonido_fondo = pg.mixer.Sound("assets\Sonidos\sonido_fondo.mp3")
 sonido_pausa = pg.mixer.Sound("assets\Sonidos\pausa.mp3")
 sonido_juego = pg.mixer.Sound("assets\Sonidos\sonido_juego.mp3")
+sonido_fondo2 = pg.mixer.Sound("assets\Sonidos\musica_fondo.wav")
 
 lista_sonidos = [sonido_fondo, sonido_pausa, sonido_juego]
 

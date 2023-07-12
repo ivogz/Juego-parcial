@@ -40,7 +40,6 @@ class GameState():
         self.nivel_tres = Nivel_3()
         self.nivel_cuatro = Nivel_4()
         self.nivel_cinco = Nivel_5()
-        self.nivel_cinco.activar_nivel()
 
         self.bandera_pause = False
         self.bandera_boss_5 = False
@@ -101,6 +100,27 @@ class GameState():
                 if volumen == 0:
                     sonido.set_volume(1)
                 else: sonido.set_volume(0)
+
+        if self.interfaz_settings.btn_volume_mas_effects():
+            for sonido in s.lista_efectos_sonidos:
+                volumen = sonido.get_volume()
+                nuevo_volumen = volumen + 0.1
+                sonido.set_volume(nuevo_volumen)
+                
+        if self.interfaz_settings.btn_volume_menos_effects():
+            for sonido in s.lista_efectos_sonidos:
+                volumen = sonido.get_volume()
+                nuevo_volumen = volumen - 0.1
+                sonido.set_volume(nuevo_volumen)
+                
+        if self.interfaz_settings.btn_volume_mute_effects():
+            for sonido in s.lista_efectos_sonidos:
+                volumen = sonido.get_volume()
+                if volumen == 0:
+                    sonido.set_volume(1)
+                else: sonido.set_volume(0)
+
+
 
 
         self.interfaz_settings.update()
@@ -231,7 +251,7 @@ class GameState():
             self.controlador_nivel(self.nivel_uno, "nivel_2", 75, self.nivel_dos)
 
         elif self.state == "nivel_2":
-            self.aplicar_sonido_fondo(s.sonido_juego)
+            self.aplicar_sonido_fondo(s.sonido_fondo2)
             self.controlador_nivel(self.nivel_dos, "nivel_3", 100, self.nivel_tres)
 
         elif self.state == "nivel_3":
@@ -239,7 +259,7 @@ class GameState():
             self.controlador_nivel(self.nivel_tres, "nivel_4", 150, self.nivel_cuatro)
 
         elif self.state == "nivel_4":
-            self.aplicar_sonido_fondo(s.sonido_juego)
+            self.aplicar_sonido_fondo(s.sonido_fondo2)
             self.controlador_nivel(self.nivel_cuatro, "nivel_5", 200, self.nivel_cinco)
 
         elif self.state == "nivel_5":
@@ -256,6 +276,7 @@ class GameState():
                     self.state_actual.boss.kill()
                     self.ganar()
 
+    ### MEDIO ENTRE EL PASO DE NIVELES ###
     def controlador_nivel(self, state_actual, state_siguiente:str, puntuacion_p_pasar:int, nivel_siguiente):
         self.state_actual = state_actual
         self.main_game()
