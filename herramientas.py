@@ -32,7 +32,6 @@ def girar_imagenes(lista, flip_x, flip_y):
     return lista_girada
 
 
-
 ######################## MAPAS #################################
 
 
@@ -51,6 +50,7 @@ mapa_intro = pg.transform.scale(pg.image.load("assets/fondo_menu.jpg"), (c.ANCHO
 boton_play = pg.image.load("assets/Menu/1.png")
 boton_settings = pg.image.load("assets/Menu/2.png")
 boton_exit = pg.image.load("assets/Menu/3.png")
+boton_ranking = pg.transform.scale(pg.image.load("assets/ranking.png"),(260,92))
 
 ## MENU
 boton_menu = pg.transform.scale(pg.image.load("assets/Menu/boton_casa.png"), (80,80))
@@ -79,6 +79,11 @@ boton_play_pausa = pg.transform.scale(pg.image.load("assets/Menu/pausa/play_paus
 ## GAME OVER ## 
 
 game_over = pg.transform.scale(pg.image.load("assets/Menu/game_over.png"), (1105 / 2 , 673 / 2))
+
+##### LVL COMPLETEE ####
+
+level_complete = pg.transform.scale(pg.image.load("assets\level_complete.png"), (1105 / 2 , 673 / 2))
+rect_boton = pg.transform.scale(pg.image.load("assets/rect_boton.png"), (240,90))
 
 
 ############################ PLATAFORMAS #########################
@@ -248,36 +253,6 @@ cerebro_shoot = [
 reescalar_imagenes2(cerebro_shoot, 42, 42)
 
 
-############# SONIDOS #######
-pg.mixer.init()
+#### GANASTE    #####
 
-sonido_fondo = pg.mixer.Sound("assets\Sonidos\sonido_fondo.mp3")
-sonido_pausa = pg.mixer.Sound("assets\Sonidos\pausa.mp3")
-sonido_juego = pg.mixer.Sound("assets\Sonidos\sonido_juego.mp3")
-
-lista_sonidos = [sonido_fondo, sonido_pausa, sonido_juego]
-
-
-sonido_fondo.set_volume(0.1)
-
-def apagar_sonidos_menos(sonido_no_apagar:str):
-    '''fondo, juego, pausa'''
-    global lista_sonidos
-    if sonido_no_apagar == "fondo":
-        for sonido in lista_sonidos:
-            if sonido == sonido_fondo:
-                sonido.play(-1)
-            else: sonido.stop()
-    elif sonido_no_apagar == "juego":
-        for sonido in lista_sonidos:
-            if sonido == sonido_juego:
-                sonido.play(-1)
-            else: sonido.stop()
-    elif sonido_no_apagar == "pausa":
-        for sonido in lista_sonidos:
-            if sonido == sonido_pausa:
-                sonido.play(-1)
-            else: sonido.stop()
-    for sonido in lista_sonidos:
-        sonido.set_volume(0.1)
-
+ganaste_img = pg.image.load("assets\ganaste.png")

@@ -4,6 +4,7 @@ import random
 
 import herramientas as h
 import constantes as c
+import sonidos as s
 
 from clases.proyectiles import Proyectiles
 
@@ -35,7 +36,7 @@ class Boss(pg.sprite.Sprite):
         self.i = 0
         self.cond = True
 
-        self.salud = 104
+        self.salud = 25
 
     def update(self):
         if self.salud > 91: i = 0
@@ -60,19 +61,9 @@ class Boss(pg.sprite.Sprite):
         self.rect.x += self.velocidad
 
         if self.rect.right >= c.ANCHO:
-            # self.cond = False
-            # self.rect.right = c.ANCHO - 40
             self.velocidad = -4
         elif self.rect.left <= 0:
-            # self.cond = True
-            # self.rect.left = 0 + 40
             self.velocidad = 4
-        
-        
-        # if self.rect.left > 0:
-        #     self.rect.left = 0
-        # if self.rect.right < c.ANCHO:
-        #     self.rect.right = c.ANCHO
 
     def shoot(self):
         if self.rect.x == self.player.rect.centerx:
@@ -82,5 +73,11 @@ class Boss(pg.sprite.Sprite):
                 proyectil = Proyectiles(h.cerebro_shoot, x, y, 0, 3)
                 self.lista_proyectiles.add(proyectil)
                 self.all_sprites.add(proyectil)
+
+    def recibir_daño(self):
+        self.salud -= 1
+        if self.salud == 0:
+            s.sonido_muerte_boss.play()
+            pg.time.delay(200)
 
 

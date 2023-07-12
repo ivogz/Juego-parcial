@@ -1,11 +1,15 @@
 import pygame as pg
 import time
+
 import constantes as c
 import herramientas as h
+import sonidos as s
+
 from clases.proyectiles import Proyectiles
+
 from setup import PANTALLA
 
-
+pg.mixer.init()
 
 
 
@@ -106,6 +110,7 @@ class Player(pg.sprite.Sprite):
     def recibir_daño(self):
 
         if self.escudo == False:
+            s.sonido_perder_vida.play()
             self.salud -= 1
         elif self.escudo == True:
             self.escudo = False
@@ -114,6 +119,7 @@ class Player(pg.sprite.Sprite):
 
     def Bala(self, velocidad_x, velocidad_y):
         ataque_distancia = Proyectiles(h.player_disparo, self.rect.centerx, self.rect.top, velocidad_x, velocidad_y)
+        s.sonido_disparo_player.play()
         self.grupo_balas.add(ataque_distancia)
         self.grupo_all_sprites.add(ataque_distancia)
 

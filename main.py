@@ -6,7 +6,7 @@ from modo import *
 from game_state import GameState
 
 game_state = GameState()
-
+pg.mixer.init()
 
 
 running = True

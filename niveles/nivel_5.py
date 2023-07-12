@@ -49,5 +49,7 @@ class Nivel_5(Nivel):
         super().__init__(PANTALLA, all_sprites, all_plataformas, all_flowers, all_enemigos, player_proyectiles, all_proyectiles_enemigos, fondo, piso)
 
         self.cantidad_enemigos = 8
+
+        self.bandera_boss_5 = False
         
         

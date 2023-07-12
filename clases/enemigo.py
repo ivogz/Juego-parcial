@@ -4,6 +4,7 @@ import random
 
 import herramientas as h
 import constantes as c
+import sonidos as s
 
 from setup import PANTALLA
 
@@ -50,6 +51,12 @@ class Diablito(Enemigo):
         self.image = h.diablito_sprite
         self.velocidad = random.randrange(1,4)
         self.salud = 2
+
+    def recibir_daño(self):
+        self.salud -= 1
+        if self.salud == 0:
+            s.sonido_muerte_diablo.play()
+            
 
 
         

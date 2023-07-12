@@ -12,6 +12,7 @@ from clases.flores_powerup import Flor_vida, Flor_azul, Flor_verde, Flor_negra, 
 from clases.enemigo import Enemigo, Diablito
 from clases.score import Score
 from clases.boss import Boss
+from interfaces.cronometro import Cronometro
 
 # from clases.proyectiles import Proyectiles
 
@@ -45,6 +46,8 @@ class Nivel():
         self.score = Score(25)
         self.all_sprites.add(self.score)
 
+        self.cronometro = Cronometro()
+
         self.plataforma_base = Plataforma(c.ANCHO // 2, c.ALTO - 52 , pg.Rect(0,0, c.ANCHO, 20))
         self.plataformas.add(self.plataforma_base)
         self.all_sprites.add(self.plataforma_base)
@@ -58,6 +61,8 @@ class Nivel():
 
         ### ENEMIGOS
         self.cantidad_enemigos = 5
+
+        self.bandera_cronometro = True
 
     def detectar_colision_flores(self):
         colision_flor = pg.sprite.spritecollide(self.player, self.flores, True)
@@ -104,7 +109,7 @@ class Nivel():
         colision = pg.sprite.spritecollide(self.player, self.enemigos, False)
         if colision and tiempo_actual - self.player_ultimo_tiempo >= self.player_tiempo_cooldown:
             if self.player.escudo == False:
-                self.player.salud -= 1
+                self.player.recibir_daño()
             elif self.player.escudo == True:
                 self.player.escudo = False
             self.player_ultimo_tiempo = pg.time.get_ticks()
@@ -126,7 +131,7 @@ class Nivel():
 
         for enemigo, proyectiles in daño_a_enemigo.items():
             if proyectiles:
-                enemigo.salud -= 1
+                enemigo.recibir_daño()
                 if enemigo.salud <= 0:
                     self.score.aumentar_score()
                     enemigo.kill()
@@ -140,9 +145,9 @@ class Nivel():
         self.acceso = True
 
     def spawn_boss(self):
-            boss = Boss(self.player, self.enemigos_proyectiles, self.all_sprites)
-            self.all_sprites.add(boss)
-            self.enemigos.add(boss)
+            self.boss = Boss(self.player, self.enemigos_proyectiles, self.all_sprites)
+            self.all_sprites.add(self.boss)
+            self.enemigos.add(self.boss)
 
     def update(self):
 
@@ -160,5 +165,10 @@ class Nivel():
         self.creacion_flores()
 
         self.all_sprites.update()
+
+        if self.bandera_cronometro:
+            self.bandera_cronometro = False
+            self.cronometro.reiniciar()
+        self.cronometro.update()
 
 

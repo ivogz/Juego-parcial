@@ -13,10 +13,11 @@ class Intro():
         self.boton_play = Button(640, 200, h.boton_play, 1)
         self.boton_settings = Button(640,  350, h.boton_settings, 1)
         self.boton_exit = Button(640,  500, h.boton_exit, 1)
+        self.boton_ranking = Button(900,  500, h.boton_ranking, 1)
 
 
         ## AGREGO TODOS LOS BOTONES A LA LISTA
-        self.botones = [self.boton_play, self.boton_settings, self.boton_exit]
+        self.botones = [self.boton_play, self.boton_settings, self.boton_exit, self.boton_ranking]
 
     def update(self):
 
@@ -35,3 +36,6 @@ class Intro():
 
     def btn_exit(self):
         return self.boton_exit.draw(self.pantalla)
+    
+    def btn_ranking(self):
+        return self.boton_ranking.draw(self.pantalla)
